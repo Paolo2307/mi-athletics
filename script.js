@@ -66,17 +66,13 @@ const PRODUCTS = [
 const garmentGrid = document.getElementById('garmentGrid');
 
 if (garmentGrid) {
-  // Flatten into 6 cards: one per color variant, interleaved by variant index so that
-  // each column of the grid stays a single color (Blanc | Gris | Noir).
+  // Flatten into 6 cards: one per color variant, each still linked to its base product
   const cards = [];
-  const maxVariants = Math.max(...PRODUCTS.map((p) => p.variants.length));
-  for (let vIndex = 0; vIndex < maxVariants; vIndex++) {
-    PRODUCTS.forEach((p) => {
-      if (p.variants[vIndex]) {
-        cards.push({ product: p, variant: p.variants[vIndex], variantIndex: vIndex });
-      }
+  PRODUCTS.forEach((p) => {
+    p.variants.forEach((v, vIndex) => {
+      cards.push({ product: p, variant: v, variantIndex: vIndex });
     });
-  }
+  });
 
   garmentGrid.innerHTML = cards.map((c) => `
     <article class="garment-card" data-product="${c.product.id}" data-variant-index="${c.variantIndex}" tabindex="0" role="button" aria-label="Voir ${c.product.name}, ${c.variant.label}">
@@ -100,6 +96,7 @@ if (garmentGrid) {
   const modalFlipLabel = document.getElementById('modalFlipLabel');
   const modalSizes = document.getElementById('modalSizes');
   const sizeHint = document.getElementById('sizeHint');
+  const modalMaterial = document.getElementById('modalMaterial');
 
   let currentProduct = null;
   let currentVariantIndex = 0;
@@ -110,6 +107,7 @@ if (garmentGrid) {
     const variant = product.variants[currentVariantIndex];
 
     modalTitle.textContent = product.name;
+    modalMaterial.textContent = `${product.material} · Oversize`;
     modalVariantName.textContent = variant.label;
     modalImg.src = showingBack ? variant.back : variant.front;
     modalImg.alt = `${product.name}, ${variant.label}, ${showingBack ? 'dos' : 'face'}`;
