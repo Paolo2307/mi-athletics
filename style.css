@@ -257,11 +257,11 @@ img { display: block; max-width: 100%; }
 }
 .garment-photo {
   position: relative;
-  aspect-ratio: 4/5;
+  aspect-ratio: 1/1;
   border: 1px solid var(--line-light);
   border-radius: 2px;
   overflow: hidden;
-  background: var(--ink);
+  background: radial-gradient(ellipse at center, #161617 0%, #0b0b0c 75%);
   transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease;
 }
 .garment-card:hover .garment-photo {
@@ -273,8 +273,9 @@ img { display: block; max-width: 100%; }
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  padding: 1.4rem;
+  object-fit: contain;
+  object-position: center;
   transition: opacity 0.45s ease;
 }
 .photo-front { opacity: 1; }
@@ -478,16 +479,18 @@ a:focus-visible, button:focus-visible {
   text-align: center;
 }
 .featured-photo {
-  aspect-ratio: 4/5;
+  aspect-ratio: 1/1;
   overflow: hidden;
   border: 1px solid var(--line-light);
   border-radius: 2px;
+  background: radial-gradient(ellipse at center, #161617 0%, #0b0b0c 75%);
   transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease;
 }
 .featured-photo img {
   width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  padding: 1.4rem;
+  object-fit: contain;
+  object-position: center;
 }
 .featured-card:hover .featured-photo {
   transform: translateY(-6px);
@@ -599,13 +602,14 @@ a:focus-visible, button:focus-visible {
 
 .modal-media {
   position: relative;
-  background: #050505;
+  background: radial-gradient(ellipse at center, #161617 0%, #050505 75%);
   aspect-ratio: 4/5;
 }
 .modal-photo {
   width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: top center;
+  padding: 2.2rem;
+  object-fit: contain;
+  object-position: center;
 }
 .modal-flip {
   position: absolute;
@@ -834,3 +838,47 @@ a:focus-visible, button:focus-visible {
    NAV active link
    ============================================ */
 .nav-links a[aria-current="page"] { color: var(--flash); }
+
+/* ============================================
+   WHY THIS TEE (collection page filler section)
+   ============================================ */
+.why-tee {
+  background: var(--ink);
+  padding: 6rem 2.5rem;
+}
+.why-grid {
+  max-width: var(--container);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2.4rem;
+}
+@media (max-width: 860px) {
+  .why-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 500px) {
+  .why-grid { grid-template-columns: 1fr; }
+}
+.why-item {
+  border-top: 1px solid var(--line-dark);
+  padding-top: 1.6rem;
+}
+.why-num {
+  font-family: var(--font-shout);
+  font-size: 1.6rem;
+  color: var(--flash);
+  opacity: 0.7;
+}
+.why-item h3 {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--paper);
+  margin: 0.8rem 0 0.6rem;
+}
+.why-item p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--steel-light);
+  margin: 0;
+}
