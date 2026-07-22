@@ -6,11 +6,15 @@ Site vitrine one-page pour la marque **MI Athletics**. HTML/CSS/JS pur, aucune i
 
 ```
 mi-athletics-site/
-├── index.html
+├── index.html        (Accueil)
+├── collection.html    (Collection — clique un tee pour voir couleurs/tailles)
+├── histoire.html      (L'Histoire)
+├── contact.html       (Contact)
 ├── style.css
 ├── script.js
 └── assets/
-    └── logo.jpg
+    ├── logo.png
+    └── products/
 ```
 
 ## 🖼️ Remplacer les placeholders par tes vraies photos
