@@ -66,14 +66,23 @@ const PRODUCTS = [
 const garmentGrid = document.getElementById('garmentGrid');
 
 if (garmentGrid) {
-  garmentGrid.innerHTML = PRODUCTS.map((p) => `
-    <article class="garment-card" data-product="${p.id}" tabindex="0" role="button" aria-label="Voir ${p.name}">
+  // Flatten into 6 cards: one per color variant, each still linked to its base product
+  const cards = [];
+  PRODUCTS.forEach((p) => {
+    p.variants.forEach((v, vIndex) => {
+      cards.push({ product: p, variant: v, variantIndex: vIndex });
+    });
+  });
+
+  garmentGrid.innerHTML = cards.map((c) => `
+    <article class="garment-card" data-product="${c.product.id}" data-variant-index="${c.variantIndex}" tabindex="0" role="button" aria-label="Voir ${c.product.name}, ${c.variant.label}">
       <div class="garment-photo">
-        <img src="${p.variants[0].front}" alt="${p.name}">
+        <img src="${c.variant.front}" alt="${c.product.name}, ${c.variant.label}, face" class="photo-front">
+        <img src="${c.variant.back}" alt="${c.product.name}, ${c.variant.label}, dos" class="photo-back">
       </div>
       <div class="garment-info">
-        <h3>${p.name}</h3>
-        <p>${p.material}</p>
+        <h3>${c.product.name.replace('Mauvaise Influence — ', '')} <span class="variant-tag">${c.variant.label}</span></h3>
+        <p>${c.product.material}</p>
       </div>
     </article>
   `).join('');
@@ -113,9 +122,9 @@ if (garmentGrid) {
     `).join('');
   }
 
-  function openModal(productId) {
+  function openModal(productId, variantIndex) {
     currentProduct = PRODUCTS.find((p) => p.id === productId);
-    currentVariantIndex = 0;
+    currentVariantIndex = variantIndex || 0;
     showingBack = false;
     renderModal();
     modal.classList.add('open');
@@ -133,12 +142,12 @@ if (garmentGrid) {
 
   garmentGrid.addEventListener('click', (e) => {
     const card = e.target.closest('.garment-card');
-    if (card) openModal(card.dataset.product);
+    if (card) openModal(card.dataset.product, parseInt(card.dataset.variantIndex, 10));
   });
   garmentGrid.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       const card = e.target.closest('.garment-card');
-      if (card) { e.preventDefault(); openModal(card.dataset.product); }
+      if (card) { e.preventDefault(); openModal(card.dataset.product, parseInt(card.dataset.variantIndex, 10)); }
     }
   });
 

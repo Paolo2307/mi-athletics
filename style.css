@@ -257,11 +257,11 @@ img { display: block; max-width: 100%; }
 }
 .garment-photo {
   position: relative;
-  aspect-ratio: 1/1;
+  aspect-ratio: 4/5;
   border: 1px solid var(--line-light);
   border-radius: 2px;
   overflow: hidden;
-  background: radial-gradient(ellipse at center, #161617 0%, #0b0b0c 75%);
+  background: #101011;
   transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease;
 }
 .garment-card:hover .garment-photo {
@@ -479,11 +479,11 @@ a:focus-visible, button:focus-visible {
   text-align: center;
 }
 .featured-photo {
-  aspect-ratio: 1/1;
+  aspect-ratio: 4/5;
   overflow: hidden;
   border: 1px solid var(--line-light);
   border-radius: 2px;
-  background: radial-gradient(ellipse at center, #161617 0%, #0b0b0c 75%);
+  background: #101011;
   transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease;
 }
 .featured-photo img {
@@ -602,7 +602,7 @@ a:focus-visible, button:focus-visible {
 
 .modal-media {
   position: relative;
-  background: radial-gradient(ellipse at center, #161617 0%, #050505 75%);
+  background: #101011;
   aspect-ratio: 4/5;
 }
 .modal-photo {
@@ -882,3 +882,25 @@ a:focus-visible, button:focus-visible {
   color: var(--steel-light);
   margin: 0;
 }
+
+/* Variant tag next to product name in collection grid */
+.variant-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--steel);
+  margin-left: 0.4rem;
+}
+
+/* Featured (homepage) front/back hover crossfade */
+.featured-photo {
+  position: relative;
+}
+.featured-photo img {
+  position: absolute;
+  inset: 0;
+}
+.featured-photo .photo-front { opacity: 1; }
+.featured-photo .photo-back { opacity: 0; }
+.featured-card:hover .photo-front { opacity: 0; }
+.featured-card:hover .photo-back { opacity: 1; }
