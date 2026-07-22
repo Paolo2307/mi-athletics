@@ -406,7 +406,6 @@ img { display: block; max-width: 100%; }
   .nav { padding: 1rem 1.2rem; }
   .nav-links { gap: 1.2rem; }
   .nav-links a { font-size: 0.82rem; }
-  .collection, .histoire, .site-footer { padding-left: 1.4rem; padding-right: 1.4rem; }
   .tag-ribbon { top: 30px; right: -78px; font-size: 0.68rem; padding: 0.4rem 4rem; }
 }
 
@@ -473,6 +472,12 @@ a:focus-visible, button:focus-visible {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.4rem;
+}
+@media (max-width: 720px) {
+  .featured-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+}
+@media (max-width: 460px) {
+  .featured-grid { grid-template-columns: 1fr; max-width: 340px; margin: 0 auto; }
 }
 .featured-card {
   display: block;
@@ -904,3 +909,68 @@ a:focus-visible, button:focus-visible {
 .featured-photo .photo-back { opacity: 0; }
 .featured-card:hover .photo-front { opacity: 0; }
 .featured-card:hover .photo-back { opacity: 1; }
+
+/* ============================================
+   MOBILE POLISH — final overrides (kept at end of
+   file so they win the cascade over page-specific
+   background/padding rules declared earlier)
+   ============================================ */
+@media (max-width: 600px) {
+  .collection, .histoire, .site-footer,
+  .featured, .why-tee, .page-header,
+  .story-hero, .story-body, .contact-page,
+  .hero, .built-different {
+    padding-left: 1.4rem !important;
+    padding-right: 1.4rem !important;
+  }
+
+  .hero-logo { width: 150px; margin-bottom: 1.6rem; }
+  .hero-tagline { margin-bottom: 1.8rem; }
+  .hero-cta { padding: 0.75rem 1.3rem; font-size: 0.85rem; }
+
+  .page-header { padding-top: 7rem !important; padding-bottom: 2rem !important; }
+  .story-hero { padding-top: 7rem !important; padding-bottom: 3.5rem !important; }
+  .contact-page { padding-top: 7rem !important; }
+  .collection { padding-top: 1rem !important; padding-bottom: 4rem !important; }
+
+  .section-head { margin-bottom: 2.2rem; }
+
+  .garment-grid { gap: 1rem; }
+  .garment-info { padding-top: 0.9rem; flex-wrap: wrap; }
+  .garment-info h3 { font-size: 0.92rem; }
+
+  .why-tee { padding-top: 4rem !important; padding-bottom: 4rem !important; }
+  .why-grid { gap: 1.8rem; }
+
+  .story-row {
+    grid-template-columns: 40px 1fr;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    margin-bottom: 2.2rem !important;
+  }
+  .story-num { font-size: 1.4rem; }
+  .story-row p { font-size: 0.96rem; line-height: 1.6; }
+
+  .built-different { padding: 3.2rem 1.4rem !important; }
+
+  .site-footer { padding: 3.8rem 1.4rem 1.6rem !important; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .footer-top { padding-bottom: 2.2rem; }
+}
+
+@media (max-width: 500px) {
+  .product-modal { padding: 0.8rem; }
+  .product-modal-panel { max-height: 94vh; }
+  .modal-info { padding: 1.4rem; }
+  .modal-photo { padding: 1.4rem; }
+  .modal-close { top: 0.7rem; right: 0.7rem; width: 30px; height: 30px; }
+  .modal-info h2 { font-size: 1.3rem; }
+  .swatch { width: 30px; height: 30px; }
+  .sizes button { width: 38px; height: 38px; font-size: 0.8rem; }
+}
+
+@media (max-width: 380px) {
+  .nav-links { gap: 0.9rem; }
+  .nav-links a { font-size: 0.76rem; }
+  .nav-logo { height: 26px; }
+}

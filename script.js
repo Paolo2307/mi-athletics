@@ -35,15 +35,6 @@ if (revealEls.length) {
 // ============================================
 const PRODUCTS = [
   {
-    id: 'noir',
-    name: 'Mauvaise Influence — Noir',
-    material: '100% coton · 220g/m²',
-    variants: [
-      { key: 'grise', label: 'Écriture Grise', swatch: '#9a9a9a', front: 'assets/products/noir-grise-front.jpg', back: 'assets/products/noir-grise-back.jpg' },
-      { key: 'rose',  label: 'Écriture Rose',  swatch: '#f0409c', front: 'assets/products/noir-rose-front.jpg',  back: 'assets/products/noir-rose-back.jpg' },
-    ],
-  },
-  {
     id: 'blanc',
     name: 'Mauvaise Influence — Blanc',
     material: '90% coton / 10% viscose · 220g/m²',
@@ -61,18 +52,31 @@ const PRODUCTS = [
       { key: 'jaune',   label: 'Écriture Jaune',   swatch: '#e8c93b', front: 'assets/products/gris-jaune-front.jpg',   back: 'assets/products/gris-jaune-back.jpg' },
     ],
   },
+  {
+    id: 'noir',
+    name: 'Mauvaise Influence — Noir',
+    material: '100% coton · 220g/m²',
+    variants: [
+      { key: 'grise', label: 'Écriture Grise', swatch: '#9a9a9a', front: 'assets/products/noir-grise-front.jpg', back: 'assets/products/noir-grise-back.jpg' },
+      { key: 'rose',  label: 'Écriture Rose',  swatch: '#f0409c', front: 'assets/products/noir-rose-front.jpg',  back: 'assets/products/noir-rose-back.jpg' },
+    ],
+  },
 ];
 
 const garmentGrid = document.getElementById('garmentGrid');
 
 if (garmentGrid) {
-  // Flatten into 6 cards: one per color variant, each still linked to its base product
+  // Flatten into 6 cards: one per color variant, interleaved by variant index so that
+  // each column of the grid stays a single color (Blanc | Gris | Noir).
   const cards = [];
-  PRODUCTS.forEach((p) => {
-    p.variants.forEach((v, vIndex) => {
-      cards.push({ product: p, variant: v, variantIndex: vIndex });
+  const maxVariants = Math.max(...PRODUCTS.map((p) => p.variants.length));
+  for (let vIndex = 0; vIndex < maxVariants; vIndex++) {
+    PRODUCTS.forEach((p) => {
+      if (p.variants[vIndex]) {
+        cards.push({ product: p, variant: p.variants[vIndex], variantIndex: vIndex });
+      }
     });
-  });
+  }
 
   garmentGrid.innerHTML = cards.map((c) => `
     <article class="garment-card" data-product="${c.product.id}" data-variant-index="${c.variantIndex}" tabindex="0" role="button" aria-label="Voir ${c.product.name}, ${c.variant.label}">
