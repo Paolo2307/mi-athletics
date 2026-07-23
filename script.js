@@ -37,28 +37,25 @@ const PRODUCTS = [
   {
     id: 'blanc',
     name: 'Mauvaise Influence — Blanc',
-    material: '90% coton / 10% viscose · 220g/m²',
     variants: [
-      { key: 'noire', label: 'Écriture Noire', swatch: '#111111', front: 'assets/products/blanc-noire-front.jpg', back: 'assets/products/blanc-noire-back.jpg' },
-      { key: 'verte', label: 'Écriture Verte', swatch: '#2e7d4f', front: 'assets/products/blanc-verte-front.jpg', back: 'assets/products/blanc-verte-back.jpg' },
+      { key: 'noire', label: 'Écriture Noire', swatch: '#111111', front: 'assets/products/blanc-noire-front.jpg', back: 'assets/products/blanc-noire-back.jpg', material: '100% coton · 220g/m²' },
+      { key: 'verte', label: 'Écriture Verte', swatch: '#2e7d4f', front: 'assets/products/blanc-verte-front.jpg', back: 'assets/products/blanc-verte-back.jpg', material: '100% coton · 220g/m²' },
     ],
   },
   {
     id: 'gris',
     name: 'Mauvaise Influence — Gris',
-    material: '90% coton / 10% viscose · 220g/m²',
     variants: [
-      { key: 'blanche', label: 'Écriture Blanche', swatch: '#f2f2f2', front: 'assets/products/gris-blanche-front.jpg', back: 'assets/products/gris-blanche-back.jpg' },
-      { key: 'jaune',   label: 'Écriture Jaune',   swatch: '#e8c93b', front: 'assets/products/gris-jaune-front.jpg',   back: 'assets/products/gris-jaune-back.jpg' },
+      { key: 'blanche', label: 'Écriture Blanche', swatch: '#f2f2f2', front: 'assets/products/gris-blanche-front.jpg', back: 'assets/products/gris-blanche-back.jpg', material: '90% coton / 10% viscose · 220g/m²' },
+      { key: 'jaune',   label: 'Écriture Jaune',   swatch: '#e8c93b', front: 'assets/products/gris-jaune-front.jpg',   back: 'assets/products/gris-jaune-back.jpg',   material: '100% coton · 220g/m²' },
     ],
   },
   {
     id: 'noir',
     name: 'Mauvaise Influence — Noir',
-    material: '100% coton · 220g/m²',
     variants: [
-      { key: 'grise', label: 'Écriture Grise', swatch: '#9a9a9a', front: 'assets/products/noir-grise-front.jpg', back: 'assets/products/noir-grise-back.jpg' },
-      { key: 'rose',  label: 'Écriture Rose',  swatch: '#f0409c', front: 'assets/products/noir-rose-front.jpg',  back: 'assets/products/noir-rose-back.jpg' },
+      { key: 'grise', label: 'Écriture Grise', swatch: '#9a9a9a', front: 'assets/products/noir-grise-front.jpg', back: 'assets/products/noir-grise-back.jpg', material: '100% coton · 220g/m²' },
+      { key: 'rose',  label: 'Écriture Rose',  swatch: '#f0409c', front: 'assets/products/noir-rose-front.jpg',  back: 'assets/products/noir-rose-back.jpg', material: '100% coton · 220g/m²' },
     ],
   },
 ];
@@ -82,7 +79,7 @@ if (garmentGrid) {
       </div>
       <div class="garment-info">
         <h3>${c.product.name.replace('Mauvaise Influence — ', '')} <span class="variant-tag">${c.variant.label}</span></h3>
-        <p>${c.product.material}</p>
+        <p>${c.variant.material}</p>
       </div>
     </article>
   `).join('');
@@ -107,7 +104,7 @@ if (garmentGrid) {
     const variant = product.variants[currentVariantIndex];
 
     modalTitle.textContent = product.name;
-    modalMaterial.textContent = `${product.material} · Oversize`;
+    modalMaterial.textContent = `${variant.material} · Oversize`;
     modalVariantName.textContent = variant.label;
     modalImg.src = showingBack ? variant.back : variant.front;
     modalImg.alt = `${product.name}, ${variant.label}, ${showingBack ? 'dos' : 'face'}`;
