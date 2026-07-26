@@ -958,6 +958,13 @@ a:focus-visible, button:focus-visible {
   .modal-info h2 { font-size: 1.35rem; }
 
   .hero-logo { width: 160px; }
+  .tag-ribbon {
+    top: 95px;
+    right: -30px;
+    transform: rotate(20deg);
+    font-size: 0.5rem;
+    padding: 0.28rem 0.8rem;
+  }
 
   .page-header { padding: 7rem 1.4rem 2rem; }
   .story-hero { padding: 7rem 1.4rem 3rem; }
@@ -987,11 +994,11 @@ a:focus-visible, button:focus-visible {
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(240,64,156,0.16), transparent 60%),
     linear-gradient(180deg, rgba(6,6,7,0.55) 0%, rgba(6,6,7,0.72) 55%, rgba(6,6,7,0.95) 100%);
 }
-.hero .tag-ribbon {
+.hero .tag-ribbon,
+.hero .scroll-cue {
   z-index: 2;
 }
-.hero .hero-inner,
-.hero .scroll-cue {
+.hero .hero-inner {
   position: relative;
   z-index: 2;
 }
