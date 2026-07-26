@@ -1,6 +1,29 @@
 // ============================================
-// NAV — solid background after scrolling past hero
+// VIDEO AUTOPLAY RELIABILITY (iOS Safari fallback)
 // ============================================
+const siteVideos = document.querySelectorAll('video');
+if (siteVideos.length) {
+  const tryPlay = () => {
+    siteVideos.forEach((v) => {
+      if (v.paused) {
+        v.play().catch(() => {});
+      }
+    });
+  };
+  siteVideos.forEach((v) => {
+    v.muted = true;
+    v.setAttribute('muted', '');
+  });
+  tryPlay();
+  window.addEventListener('load', tryPlay);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) tryPlay();
+  });
+  // If autoplay was blocked (low power mode, etc.), resume on first touch/click/scroll
+  ['touchstart', 'click', 'scroll'].forEach((evt) => {
+    document.addEventListener(evt, tryPlay, { once: true, passive: true });
+  });
+}
 const nav = document.getElementById('nav');
 if (nav && !nav.classList.contains('solid')) {
   function updateNav() {
