@@ -120,19 +120,21 @@ img { display: block; max-width: 100%; }
 
 .tag-ribbon {
   position: absolute;
-  top: 46px;
-  right: -64px;
-  transform: rotate(35deg);
+  top: clamp(28px, 4vw, 44px);
+  right: clamp(-36px, -2vw, -22px);
+  transform: rotate(24deg);
   background: var(--flash);
   color: var(--ink);
   font-family: var(--font-shout);
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-  padding: 0.45rem 4rem;
+  font-size: clamp(0.54rem, 0.9vw, 0.66rem);
+  letter-spacing: 0.1em;
+  padding: 0.32rem clamp(0.9rem, 2vw, 2rem);
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 0.45rem;
   box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  white-space: nowrap;
+  max-width: 50vw;
 }
 .tag-dot {
   width: 4px; height: 4px;
@@ -407,7 +409,6 @@ img { display: block; max-width: 100%; }
   .nav-links { gap: 1.2rem; }
   .nav-links a { font-size: 0.82rem; }
   .collection, .histoire, .site-footer { padding-left: 1.4rem; padding-right: 1.4rem; }
-  .tag-ribbon { top: 30px; right: -78px; font-size: 0.68rem; padding: 0.4rem 4rem; }
 }
 
 /* Keyboard focus visibility */
@@ -957,7 +958,6 @@ a:focus-visible, button:focus-visible {
   .modal-info h2 { font-size: 1.35rem; }
 
   .hero-logo { width: 160px; }
-  .tag-ribbon { font-size: 0.62rem; padding: 0.35rem 3.4rem; }
 
   .page-header { padding: 7rem 1.4rem 2rem; }
   .story-hero { padding: 7rem 1.4rem 3rem; }
@@ -987,7 +987,9 @@ a:focus-visible, button:focus-visible {
     radial-gradient(ellipse 80% 60% at 50% 0%, rgba(240,64,156,0.16), transparent 60%),
     linear-gradient(180deg, rgba(6,6,7,0.55) 0%, rgba(6,6,7,0.72) 55%, rgba(6,6,7,0.95) 100%);
 }
-.hero .tag-ribbon,
+.hero .tag-ribbon {
+  z-index: 2;
+}
 .hero .hero-inner,
 .hero .scroll-cue {
   position: relative;
