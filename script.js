@@ -1,194 +1,201 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MI Athletics — Built Different</title>
-<meta name="description" content="MI Athletics — Built Different. La rigueur du sport, l'exigence du luxe. Découvrez la collection.">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
+// ============================================
+// NAV — solid background after scrolling past hero
+// ============================================
+const nav = document.getElementById('nav');
+if (nav && !nav.classList.contains('solid')) {
+  function updateNav() {
+    if (window.scrollY > 60) {
+      nav.classList.add('solid');
+    } else {
+      nav.classList.remove('solid');
+    }
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+}
 
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.mi-athletics.com/">
-<meta property="og:title" content="MI Athletics — Built Different">
-<meta property="og:description" content="MI Athletics — Built Different. La rigueur du sport, l'exigence du luxe. Découvrez la collection.">
-<meta property="og:image" content="https://www.mi-athletics.com/favicon.png">
+// ============================================
+// SCROLL REVEAL — fade/slide elements into view
+// ============================================
+const revealEls = document.querySelectorAll('.reveal');
+if (revealEls.length) {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  revealEls.forEach((el) => io.observe(el));
+}
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="MI Athletics — Built Different">
-<meta name="twitter:description" content="MI Athletics — Built Different. La rigueur du sport, l'exigence du luxe. Découvrez la collection.">
-<meta name="twitter:image" content="https://www.mi-athletics.com/favicon.png">
+// ============================================
+// HERO PARALLAX — subtle depth on scroll (luxury feel)
+// ============================================
+const heroSection = document.getElementById('heroSection');
+if (heroSection) {
+  const heroInner = heroSection.querySelector('.hero-inner');
+  let ticking = false;
+  function updateParallax() {
+    const scrollY = window.scrollY;
+    const heroH = heroSection.offsetHeight;
+    const progress = Math.min(scrollY / heroH, 1);
+    if (heroInner) {
+      heroInner.style.transform = `translateY(${scrollY * 0.25}px)`;
+      heroInner.style.opacity = String(1 - progress * 1.1);
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }, { passive: true });
+  updateParallax();
+}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400;1,9..144,500&family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+// ============================================
+// PRODUCT DATA + MODAL (collection page)
+// ============================================
+const PRODUCTS = [
+  {
+    id: 'blanc',
+    name: 'Mauvaise Influence — Blanc',
+    variants: [
+      { key: 'noire', label: 'Écriture Noire', swatch: '#111111', front: 'assets/products/blanc-noire-front.jpg', back: 'assets/products/blanc-noire-back.jpg', material: '100% coton · 220g/m²' },
+      { key: 'verte', label: 'Écriture Verte', swatch: '#2e7d4f', front: 'assets/products/blanc-verte-front.jpg', back: 'assets/products/blanc-verte-back.jpg', material: '100% coton · 220g/m²' },
+    ],
+  },
+  {
+    id: 'gris',
+    name: 'Mauvaise Influence — Gris',
+    variants: [
+      { key: 'blanche', label: 'Écriture Blanche', swatch: '#f2f2f2', front: 'assets/products/gris-blanche-front.jpg', back: 'assets/products/gris-blanche-back.jpg', material: '90% coton / 10% viscose · 220g/m²' },
+      { key: 'jaune',   label: 'Écriture Jaune',   swatch: '#e8c93b', front: 'assets/products/gris-jaune-front.jpg',   back: 'assets/products/gris-jaune-back.jpg',   material: '100% coton · 220g/m²' },
+    ],
+  },
+  {
+    id: 'noir',
+    name: 'Mauvaise Influence — Noir',
+    variants: [
+      { key: 'grise', label: 'Écriture Grise', swatch: '#9a9a9a', front: 'assets/products/noir-grise-front.jpg', back: 'assets/products/noir-grise-back.jpg', material: '100% coton · 220g/m²' },
+      { key: 'rose',  label: 'Écriture Rose',  swatch: '#f0409c', front: 'assets/products/noir-rose-front.jpg',  back: 'assets/products/noir-rose-back.jpg', material: '100% coton · 220g/m²' },
+    ],
+  },
+];
 
-<div class="grain"></div>
+const garmentGrid = document.getElementById('garmentGrid');
 
-<header class="nav" id="nav">
-  <a href="index.html" class="nav-mark">
-    <img src="assets/logo.png" alt="MI Athletics" class="nav-logo">
-  </a>
-  <nav class="nav-links">
-    <a href="collection.html">Collection</a>
-    <a href="histoire.html">L'Histoire</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+if (garmentGrid) {
+  // Flatten into 6 cards: one per color variant, each still linked to its base product
+  const cards = [];
+  PRODUCTS.forEach((p) => {
+    p.variants.forEach((v, vIndex) => {
+      cards.push({ product: p, variant: v, variantIndex: vIndex });
+    });
+  });
 
-<main id="top">
-
-  <!-- HERO -->
-  <section class="hero" id="heroSection">
-    <video class="hero-video" autoplay muted loop playsinline poster="assets/video/poster-main.jpg">
-      <source src="assets/video/hero-main.mp4" type="video/mp4">
-    </video>
-    <div class="hero-video-overlay"></div>
-
-    <div class="tag-ribbon" aria-hidden="true">
-      <span>EST. 2026</span>
-      <span class="tag-dot"></span>
-      <span>DROP 01</span>
-    </div>
-
-    <div class="hero-inner">
-      <img src="assets/logo.png" alt="MI Athletics" class="hero-logo">
-      <p class="hero-slogan">Built Different</p>
-      <p class="hero-tagline">Mauvaise influence.<br><em>Bonne discipline.</em></p>
-      <a href="collection.html" class="hero-cta">
-        <span>Voir la collection</span>
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7H12M12 7L7 2M12 7L7 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
-    </div>
-
-    <div class="scroll-cue" aria-hidden="true">
-      <span>DÉFILER</span>
-      <div class="scroll-line"></div>
-    </div>
-  </section>
-
-  <!-- MARQUEE -->
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>MI ATHLETICS</span><span>·</span>
-    </div>
-  </div>
-
-  <!-- FEATURED -->
-  <section class="featured">
-    <div class="section-head reveal">
-      <span class="eyebrow">La collection</span>
-      <h2>Pièces essentielles,<br>finition premium.</h2>
-    </div>
-
-    <div class="featured-grid">
-      <a href="collection.html" class="featured-card reveal">
-        <div class="featured-photo">
-          <img src="assets/products/blanc-noire-front.jpg" alt="Tee Shirt Mauvaise Influence Blanc, écriture noire, face" class="photo-front">
-          <img src="assets/products/blanc-noire-back.jpg" alt="Tee Shirt Mauvaise Influence Blanc, écriture noire, dos" class="photo-back">
-        </div>
-        <h3>Blanc <span class="variant-tag">Noir</span></h3>
-      </a>
-      <a href="collection.html" class="featured-card reveal">
-        <div class="featured-photo">
-          <img src="assets/products/blanc-verte-front.jpg" alt="Tee Shirt Mauvaise Influence Blanc, écriture verte, face" class="photo-front">
-          <img src="assets/products/blanc-verte-back.jpg" alt="Tee Shirt Mauvaise Influence Blanc, écriture verte, dos" class="photo-back">
-        </div>
-        <h3>Blanc <span class="variant-tag">Vert</span></h3>
-      </a>
-      <a href="collection.html" class="featured-card reveal">
-        <div class="featured-photo">
-          <img src="assets/products/gris-blanche-front.jpg" alt="Tee Shirt Mauvaise Influence Gris, écriture blanche, face" class="photo-front">
-          <img src="assets/products/gris-blanche-back.jpg" alt="Tee Shirt Mauvaise Influence Gris, écriture blanche, dos" class="photo-back">
-        </div>
-        <h3>Gris <span class="variant-tag">Blanc</span></h3>
-      </a>
-      <a href="collection.html" class="featured-card reveal">
-        <div class="featured-photo">
-          <img src="assets/products/gris-jaune-front.jpg" alt="Tee Shirt Mauvaise Influence Gris, écriture jaune, face" class="photo-front">
-          <img src="assets/products/gris-jaune-back.jpg" alt="Tee Shirt Mauvaise Influence Gris, écriture jaune, dos" class="photo-back">
-        </div>
-        <h3>Gris <span class="variant-tag">Jaune</span></h3>
-      </a>
-      <a href="collection.html" class="featured-card reveal">
-        <div class="featured-photo">
-          <img src="assets/products/noir-grise-front.jpg" alt="Tee Shirt Mauvaise Influence Noir, écriture grise, face" class="photo-front">
-          <img src="assets/products/noir-grise-back.jpg" alt="Tee Shirt Mauvaise Influence Noir, écriture grise, dos" class="photo-back">
-        </div>
-        <h3>Noir <span class="variant-tag">Gris</span></h3>
-      </a>
-      <a href="collection.html" class="featured-card reveal">
-        <div class="featured-photo">
-          <img src="assets/products/noir-rose-front.jpg" alt="Tee Shirt Mauvaise Influence Noir, écriture rose, face" class="photo-front">
-          <img src="assets/products/noir-rose-back.jpg" alt="Tee Shirt Mauvaise Influence Noir, écriture rose, dos" class="photo-back">
-        </div>
-        <h3>Noir <span class="variant-tag">Rose</span></h3>
-      </a>
-    </div>
-
-    <a href="collection.html" class="featured-cta">
-      <span>Voir toute la collection</span>
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7H12M12 7L7 2M12 7L7 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </a>
-  </section>
-
-  <!-- DETAIL TEXT SECTION -->
-  <section class="detail-showcase" id="detailShowcase">
-    <div class="detail-showcase-text reveal">
-      <span class="eyebrow">Le détail</span>
-      <h2>Un logo.<br>Une signature.</h2>
-      <p>Brodé sur la poitrine, discret mais reconnaissable entre mille. Ce n'est pas qu'un tee shirt — c'est un signe de ralliement.</p>
-    </div>
-  </section>
-
-  <!-- TEASER: NEXT COLLECTION -->
-  <section class="teaser-showcase" id="teaserShowcase">
-    <video class="teaser-video" autoplay muted loop playsinline poster="assets/video/poster-teaser.jpg">
-      <source src="assets/video/hero-teaser.mp4" type="video/mp4">
-    </video>
-    <div class="teaser-video-overlay"></div>
-    <div class="teaser-showcase-text reveal">
-      <span class="teaser-badge">Teaser</span>
-      <h2>Prochaine collection.<br>Bientôt disponible.</h2>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-top">
-      <img src="assets/logo.png" alt="MI Athletics" class="footer-logo">
-      <p class="footer-cta-text">Une question, une collaboration, une envie de commander&nbsp;? Écrivez-nous.</p>
-      <a href="mailto:contact@mi-athletics.com" class="footer-email">contact@mi-athletics.com</a>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-links">
-        <a href="https://www.instagram.com/mi__athletics/" target="_blank" rel="noopener">Instagram</a>
-        <a href="contact.html">Contact</a>
+  garmentGrid.innerHTML = cards.map((c) => `
+    <article class="garment-card" data-product="${c.product.id}" data-variant-index="${c.variantIndex}" tabindex="0" role="button" aria-label="Voir ${c.product.name}, ${c.variant.label}">
+      <div class="garment-photo">
+        <img src="${c.variant.front}" alt="${c.product.name}, ${c.variant.label}, face" class="photo-front">
+        <img src="${c.variant.back}" alt="${c.product.name}, ${c.variant.label}, dos" class="photo-back">
       </div>
-      <p class="footer-copy">© 2026 MI Athletics. Tous droits réservés.</p>
-    </div>
-  </footer>
+      <div class="garment-info">
+        <h3>${c.product.name.replace('Mauvaise Influence — ', '')} <span class="variant-tag">${c.variant.label}</span></h3>
+        <p>${c.variant.material}</p>
+      </div>
+    </article>
+  `).join('');
 
-</main>
+  const modal = document.getElementById('productModal');
+  const modalImg = document.getElementById('modalImg');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalVariantName = document.getElementById('modalVariantName');
+  const modalSwatches = document.getElementById('modalSwatches');
+  const modalFlip = document.getElementById('modalFlip');
+  const modalFlipLabel = document.getElementById('modalFlipLabel');
+  const modalSizes = document.getElementById('modalSizes');
+  const sizeHint = document.getElementById('sizeHint');
+  const modalMaterial = document.getElementById('modalMaterial');
 
-<script src="script.js"></script>
-</body>
-</html>
+  let currentProduct = null;
+  let currentVariantIndex = 0;
+  let showingBack = false;
+
+  function renderModal() {
+    const product = currentProduct;
+    const variant = product.variants[currentVariantIndex];
+
+    modalTitle.textContent = product.name;
+    modalMaterial.textContent = `${variant.material} · Oversize`;
+    modalVariantName.textContent = variant.label;
+    modalImg.src = showingBack ? variant.back : variant.front;
+    modalImg.alt = `${product.name}, ${variant.label}, ${showingBack ? 'dos' : 'face'}`;
+    modalFlipLabel.textContent = showingBack ? 'Voir la face' : 'Voir le dos';
+
+    modalSwatches.innerHTML = product.variants.map((v, i) => `
+      <button type="button"
+        class="swatch ${i === currentVariantIndex ? 'active' : ''}"
+        style="--swatch-color:${v.swatch}"
+        data-variant-index="${i}"
+        aria-label="${v.label}"
+        aria-pressed="${i === currentVariantIndex}">
+      </button>
+    `).join('');
+  }
+
+  function openModal(productId, variantIndex) {
+    currentProduct = PRODUCTS.find((p) => p.id === productId);
+    currentVariantIndex = variantIndex || 0;
+    showingBack = false;
+    renderModal();
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    modalSizes.querySelectorAll('button').forEach((b) => b.classList.remove('selected'));
+    sizeHint.textContent = 'Sélectionne ta taille';
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  garmentGrid.addEventListener('click', (e) => {
+    const card = e.target.closest('.garment-card');
+    if (card) openModal(card.dataset.product, parseInt(card.dataset.variantIndex, 10));
+  });
+  garmentGrid.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const card = e.target.closest('.garment-card');
+      if (card) { e.preventDefault(); openModal(card.dataset.product, parseInt(card.dataset.variantIndex, 10)); }
+    }
+  });
+
+  modal.querySelectorAll('[data-close]').forEach((el) => el.addEventListener('click', closeModal));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+  modalFlip.addEventListener('click', () => {
+    showingBack = !showingBack;
+    renderModal();
+  });
+
+  modalSwatches.addEventListener('click', (e) => {
+    const btn = e.target.closest('.swatch');
+    if (!btn) return;
+    currentVariantIndex = parseInt(btn.dataset.variantIndex, 10);
+    renderModal();
+  });
+
+  modalSizes.addEventListener('click', (e) => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+    modalSizes.querySelectorAll('button').forEach((b) => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    sizeHint.textContent = `Taille sélectionnée : ${btn.dataset.size}`;
+  });
+}

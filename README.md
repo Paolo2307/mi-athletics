@@ -1,101 +1,80 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>L'Histoire — MI Athletics</title>
-<meta name="description" content="L'histoire de MI Athletics — Built Different. Discipline, ambition, mentalité.">
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="favicon.png">
+# MI Athletics — Site vitrine
 
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.mi-athletics.com/histoire.html">
-<meta property="og:title" content="L'Histoire — MI Athletics">
-<meta property="og:description" content="L'histoire de MI Athletics — Built Different. Discipline, ambition, mentalité.">
-<meta property="og:image" content="https://www.mi-athletics.com/favicon.png">
+Site vitrine one-page pour la marque **MI Athletics**. HTML/CSS/JS pur, aucune installation ni build nécessaire.
 
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="L'Histoire — MI Athletics">
-<meta name="twitter:description" content="L'histoire de MI Athletics — Built Different. Discipline, ambition, mentalité.">
-<meta name="twitter:image" content="https://www.mi-athletics.com/favicon.png">
+## Structure du projet
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400;1,9..144,500&family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
+```
+mi-athletics-site/
+├── index.html        (Accueil)
+├── collection.html    (Collection — clique un tee pour voir couleurs/tailles)
+├── histoire.html      (L'Histoire)
+├── contact.html       (Contact)
+├── style.css
+├── script.js
+└── assets/
+    ├── logo.png
+    └── products/
+```
 
-<div class="grain"></div>
+## 🖼️ Remplacer les placeholders par tes vraies photos
 
-<header class="nav solid" id="nav">
-  <a href="index.html" class="nav-mark">
-    <img src="assets/logo.png" alt="MI Athletics" class="nav-logo">
-  </a>
-  <nav class="nav-links">
-    <a href="collection.html">Collection</a>
-    <a href="histoire.html" aria-current="page">L'Histoire</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-</header>
+Dans `index.html`, chaque t-shirt a un bloc `<div class="photo-placeholder">...</div>`.
+Pour mettre une vraie photo :
 
-<main>
+1. Ajoute ton image dans `assets/products/` (par ex. `assets/products/tee-rose.jpg`)
+2. Remplace le bloc placeholder par une simple image :
 
-  <section class="story-hero">
-    <span class="eyebrow reveal">L'histoire</span>
-    <h1 class="reveal">Fondée pour celles et ceux<br>qui s'entraînent avec<br><em>la même exigence</em><br>qu'ils s'habillent.</h1>
-  </section>
+```html
+<div class="garment-photo">
+  <img src="assets/products/tee-rose.jpg" alt="Tee Signature Rose">
+</div>
+```
 
-  <div class="marquee marquee-invert" aria-hidden="true">
-    <div class="marquee-track">
-      <span>BUILT DIFFERENT</span><span>·</span><span>DISCIPLINE</span><span>·</span><span>AMBITION</span><span>·</span><span>MENTALITÉ</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>DISCIPLINE</span><span>·</span><span>AMBITION</span><span>·</span><span>MENTALITÉ</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>DISCIPLINE</span><span>·</span><span>AMBITION</span><span>·</span><span>MENTALITÉ</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>DISCIPLINE</span><span>·</span><span>AMBITION</span><span>·</span><span>MENTALITÉ</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>DISCIPLINE</span><span>·</span><span>AMBITION</span><span>·</span><span>MENTALITÉ</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>DISCIPLINE</span><span>·</span><span>AMBITION</span><span>·</span><span>MENTALITÉ</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>DISCIPLINE</span><span>·</span><span>AMBITION</span><span>·</span><span>MENTALITÉ</span><span>·</span>
-      <span>BUILT DIFFERENT</span><span>·</span><span>DISCIPLINE</span><span>·</span><span>AMBITION</span><span>·</span><span>MENTALITÉ</span><span>·</span>
-    </div>
-  </div>
+Répète pour chaque produit. Tu peux aussi dupliquer une `<article class="garment-card size-sm">` pour ajouter de nouveaux produits.
 
-  <section class="story-body">
-    <div class="story-row reveal">
-      <span class="story-num">01</span>
-      <p>MI Athletics est née d'une idée simple&nbsp;: le vêtement de sport n'a pas à choisir entre performance et allure. Chaque pièce est pensée comme un vêtement de vestiaire — solide, honnête dans ses matières — et comme une pièce que l'on porte fièrement en dehors du terrain.</p>
-    </div>
-    <div class="story-row reveal">
-      <span class="story-num">02</span>
-      <p>Le rose de notre logo n'est pas un hasard&nbsp;: c'est un signal. Discret sur le tissu, affirmé dans l'attitude. On ne suit pas la tendance, on impose la sienne.</p>
-    </div>
-    <div class="story-row reveal">
-      <span class="story-num">03</span>
-      <p>Chaque tee shirt porte au dos un seul mot d'ordre&nbsp;: Mauvaise Influence. Une revendication, pas une excuse. Discipline. Ambition. Mentalité.</p>
-    </div>
-  </section>
+## 🚀 Mettre le site en ligne (GitHub + Vercel)
 
-  <section class="built-different reveal">
-    <p class="built-different-text">Built Different</p>
-  </section>
+### 1. Créer le dépôt GitHub
+1. Va sur [github.com/new](https://github.com/new)
+2. Nomme le dépôt (ex. `mi-athletics-site`), garde-le **Public** ou **Privé**, ne coche aucune case d'initialisation
+3. Clique **Create repository**
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-top">
-      <img src="assets/logo.png" alt="MI Athletics" class="footer-logo">
-      <p class="footer-cta-text">Une question, une collaboration, une envie de commander&nbsp;? Écrivez-nous.</p>
-      <a href="mailto:contact@mi-athletics.com" class="footer-email">contact@mi-athletics.com</a>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-links">
-        <a href="https://www.instagram.com/mi__athletics/" target="_blank" rel="noopener">Instagram</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <p class="footer-copy">© 2026 MI Athletics. Tous droits réservés.</p>
-    </div>
-  </footer>
+### 2. Envoyer le code sur GitHub
+Dans un terminal, à la racine de ce dossier :
 
-</main>
+```bash
+git init
+git add .
+git commit -m "Premier commit — site MI Athletics"
+git branch -M main
+git remote add origin https://github.com/TON-PSEUDO/mi-athletics-site.git
+git push -u origin main
+```
 
-<script src="script.js"></script>
-</body>
-</html>
+*(Remplace `TON-PSEUDO` par ton nom d'utilisateur GitHub. L'URL exacte est affichée sur la page du dépôt que tu viens de créer.)*
+
+### 3. Déployer sur Vercel
+1. Va sur [vercel.com/new](https://vercel.com/new)
+2. Connecte ton compte GitHub si ce n'est pas déjà fait
+3. Sélectionne le dépôt `mi-athletics-site`
+4. Vercel détecte automatiquement que c'est un site statique — **ne change aucun paramètre**, clique **Deploy**
+5. En ~30 secondes, ton site est en ligne sur une URL du type `mi-athletics-site.vercel.app`
+
+### 4. Mises à jour futures
+À chaque fois que tu modifies le site :
+
+```bash
+git add .
+git commit -m "Description du changement"
+git push
+```
+
+Vercel redéploie automatiquement à chaque `push` sur la branche `main`. Aucune action supplémentaire nécessaire.
+
+### 5. (Optionnel) Nom de domaine personnalisé
+Dans le dashboard Vercel du projet → **Settings → Domains**, tu peux ajouter un domaine que tu possèdes (ex. `mi-athletics.com`).
+
+---
+
+Fait avec Claude 🩷
