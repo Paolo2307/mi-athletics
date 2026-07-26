@@ -714,10 +714,36 @@ a:focus-visible, button:focus-visible {
    STORY / HISTOIRE PAGE
    ============================================ */
 .story-hero {
+  position: relative;
+  overflow: hidden;
   background: var(--ink);
   padding: 10rem 2.5rem 5rem;
   max-width: var(--container);
   margin: 0 auto;
+}
+.story-video {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  height: 100%;
+  transform: translateX(-50%);
+  object-fit: cover;
+  z-index: 0;
+  animation: slowZoom 22s ease-in-out infinite alternate;
+}
+.story-video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(240,64,156,0.14), transparent 60%),
+    linear-gradient(180deg, rgba(6,6,7,0.65) 0%, rgba(6,6,7,0.8) 60%, rgba(6,6,7,0.95) 100%);
+}
+.story-hero .eyebrow,
+.story-hero h1 {
+  position: relative;
+  z-index: 2;
 }
 .story-hero h1 {
   font-family: var(--font-display);
