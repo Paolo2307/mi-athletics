@@ -42,7 +42,12 @@
 <main id="top">
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" id="heroSection">
+    <video class="hero-video" autoplay muted loop playsinline poster="assets/video/poster-main.jpg">
+      <source src="assets/video/hero-main.mp4" type="video/mp4">
+    </video>
+    <div class="hero-video-overlay"></div>
+
     <div class="tag-ribbon" aria-hidden="true">
       <span>EST. 2026</span>
       <span class="tag-dot"></span>
@@ -89,48 +94,48 @@
 
   <!-- FEATURED -->
   <section class="featured">
-    <div class="section-head">
+    <div class="section-head reveal">
       <span class="eyebrow">La collection</span>
       <h2>Pièces essentielles,<br>finition premium.</h2>
     </div>
 
     <div class="featured-grid">
-      <a href="collection.html" class="featured-card">
+      <a href="collection.html" class="featured-card reveal">
         <div class="featured-photo">
           <img src="assets/products/blanc-noire-front.jpg" alt="Tee Shirt Mauvaise Influence Blanc, écriture noire, face" class="photo-front">
           <img src="assets/products/blanc-noire-back.jpg" alt="Tee Shirt Mauvaise Influence Blanc, écriture noire, dos" class="photo-back">
         </div>
         <h3>Blanc <span class="variant-tag">Noir</span></h3>
       </a>
-      <a href="collection.html" class="featured-card">
+      <a href="collection.html" class="featured-card reveal">
         <div class="featured-photo">
           <img src="assets/products/blanc-verte-front.jpg" alt="Tee Shirt Mauvaise Influence Blanc, écriture verte, face" class="photo-front">
           <img src="assets/products/blanc-verte-back.jpg" alt="Tee Shirt Mauvaise Influence Blanc, écriture verte, dos" class="photo-back">
         </div>
         <h3>Blanc <span class="variant-tag">Vert</span></h3>
       </a>
-      <a href="collection.html" class="featured-card">
+      <a href="collection.html" class="featured-card reveal">
         <div class="featured-photo">
           <img src="assets/products/gris-blanche-front.jpg" alt="Tee Shirt Mauvaise Influence Gris, écriture blanche, face" class="photo-front">
           <img src="assets/products/gris-blanche-back.jpg" alt="Tee Shirt Mauvaise Influence Gris, écriture blanche, dos" class="photo-back">
         </div>
         <h3>Gris <span class="variant-tag">Blanc</span></h3>
       </a>
-      <a href="collection.html" class="featured-card">
+      <a href="collection.html" class="featured-card reveal">
         <div class="featured-photo">
           <img src="assets/products/gris-jaune-front.jpg" alt="Tee Shirt Mauvaise Influence Gris, écriture jaune, face" class="photo-front">
           <img src="assets/products/gris-jaune-back.jpg" alt="Tee Shirt Mauvaise Influence Gris, écriture jaune, dos" class="photo-back">
         </div>
         <h3>Gris <span class="variant-tag">Jaune</span></h3>
       </a>
-      <a href="collection.html" class="featured-card">
+      <a href="collection.html" class="featured-card reveal">
         <div class="featured-photo">
           <img src="assets/products/noir-grise-front.jpg" alt="Tee Shirt Mauvaise Influence Noir, écriture grise, face" class="photo-front">
           <img src="assets/products/noir-grise-back.jpg" alt="Tee Shirt Mauvaise Influence Noir, écriture grise, dos" class="photo-back">
         </div>
         <h3>Noir <span class="variant-tag">Gris</span></h3>
       </a>
-      <a href="collection.html" class="featured-card">
+      <a href="collection.html" class="featured-card reveal">
         <div class="featured-photo">
           <img src="assets/products/noir-rose-front.jpg" alt="Tee Shirt Mauvaise Influence Noir, écriture rose, face" class="photo-front">
           <img src="assets/products/noir-rose-back.jpg" alt="Tee Shirt Mauvaise Influence Noir, écriture rose, dos" class="photo-back">
@@ -143,6 +148,19 @@
       <span>Voir toute la collection</span>
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7H12M12 7L7 2M12 7L7 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </a>
+  </section>
+
+  <!-- DETAIL SHOWCASE VIDEO -->
+  <section class="detail-showcase" id="detailShowcase">
+    <video class="detail-video" autoplay muted loop playsinline poster="assets/video/poster-detail.jpg">
+      <source src="assets/video/hero-detail.mp4" type="video/mp4">
+    </video>
+    <div class="detail-video-overlay"></div>
+    <div class="detail-showcase-text reveal">
+      <span class="eyebrow">Le détail</span>
+      <h2>Un logo.<br>Une signature.</h2>
+      <p>Brodé sur la poitrine, discret mais reconnaissable entre mille. Ce n'est pas qu'un tee shirt — c'est un signe de ralliement.</p>
+    </div>
   </section>
 
   <!-- FOOTER -->

@@ -939,3 +939,114 @@ a:focus-visible, button:focus-visible {
 
   .built-different-text { font-size: clamp(2rem, 13vw, 3.5rem); }
 }
+
+/* ============================================
+   HERO VIDEO BACKGROUND (luxury cinematic hero)
+   ============================================ */
+.hero { position: relative; overflow: hidden; }
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  animation: slowZoom 24s ease-in-out infinite alternate;
+}
+.hero-video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(240,64,156,0.16), transparent 60%),
+    linear-gradient(180deg, rgba(6,6,7,0.55) 0%, rgba(6,6,7,0.72) 55%, rgba(6,6,7,0.95) 100%);
+}
+.hero .tag-ribbon,
+.hero .hero-inner,
+.hero .scroll-cue {
+  position: relative;
+  z-index: 2;
+}
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.09); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-video { animation: none; }
+}
+
+/* ============================================
+   DETAIL SHOWCASE VIDEO SECTION
+   ============================================ */
+.detail-showcase {
+  position: relative;
+  min-height: 78vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 4rem 2.5rem;
+}
+.detail-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  animation: slowZoom 20s ease-in-out infinite alternate;
+}
+.detail-video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(5,5,6,0.1) 0%, rgba(5,5,6,0.35) 55%, rgba(5,5,6,0.92) 100%);
+}
+.detail-showcase-text {
+  position: relative;
+  z-index: 2;
+  max-width: 560px;
+}
+.detail-showcase-text h2 {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.15;
+  color: var(--paper);
+  margin: 0.5rem 0 1rem;
+}
+.detail-showcase-text p {
+  color: var(--steel-light);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 460px;
+  margin: 0;
+}
+@media (max-width: 640px) {
+  .detail-showcase { padding: 3rem 1.4rem; min-height: 64vh; }
+}
+
+/* ============================================
+   MICRO-INTERACTIONS — luxury-feel hover polish
+   ============================================ */
+.hero-cta, .featured-cta, .modal-cta, .contact-card, .footer-email {
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+.hero-cta:hover { transform: scale(1.045); }
+.featured-cta:hover { transform: translateX(4px); }
+.contact-card:hover { transform: translateY(-6px) scale(1.01); }
+
+/* Nav logo subtle lift on hover */
+.nav-mark { transition: transform 0.3s ease; display: inline-block; }
+.nav-mark:hover { transform: scale(1.05); }
+
+/* Swatch + size buttons snappier feedback */
+.swatch, .sizes button {
+  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.sizes button:active, .swatch:active { transform: scale(0.92); }
+
+/* Staggered reveal delays for grouped elements */
+.reveal:nth-child(1) { transition-delay: 0s; }
+.reveal:nth-child(2) { transition-delay: 0.08s; }
+.reveal:nth-child(3) { transition-delay: 0.16s; }
+.reveal:nth-child(4) { transition-delay: 0.24s; }

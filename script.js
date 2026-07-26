@@ -31,6 +31,32 @@ if (revealEls.length) {
 }
 
 // ============================================
+// HERO PARALLAX — subtle depth on scroll (luxury feel)
+// ============================================
+const heroSection = document.getElementById('heroSection');
+if (heroSection) {
+  const heroInner = heroSection.querySelector('.hero-inner');
+  let ticking = false;
+  function updateParallax() {
+    const scrollY = window.scrollY;
+    const heroH = heroSection.offsetHeight;
+    const progress = Math.min(scrollY / heroH, 1);
+    if (heroInner) {
+      heroInner.style.transform = `translateY(${scrollY * 0.25}px)`;
+      heroInner.style.opacity = String(1 - progress * 1.1);
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }, { passive: true });
+  updateParallax();
+}
+
+// ============================================
 // PRODUCT DATA + MODAL (collection page)
 // ============================================
 const PRODUCTS = [
